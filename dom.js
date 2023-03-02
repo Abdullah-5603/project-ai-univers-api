@@ -1,25 +1,21 @@
 // fetch data function
-const loadData = async (dataLimit) =>{
+let dataArray = [];
+let dataLimit = 6;
+const loadData = async () =>{
     const url = 'https://openapi.programming-hero.com/api/ai/tools/'
     const res = await fetch(url);
     const data = await res.json();
-    showData(data, dataLimit);
+    dataArray = data.data.tools;
+    showData();
 }
 
 // show data function
-const showData = (data, dataLimit) =>{
+const showData = () =>{
     const card = document.getElementById('card');
     const seeMoreBtn = document.getElementById('see-more-btn');
-    let dataArray = data.data.tools;
     card.innerHTML = '';
-    if(dataLimit && dataArray.length > 6){
-        dataArray = dataArray.slice(0, 6);
-        seeMoreBtn.classList.remove('d-none');
-       }
-        else{
-            seeMoreBtn.classList.add('d-none');
-       }
-    dataArray.forEach(singleData => {
+    let dataToShow = dataArray.slice(0, dataLimit);
+    dataToShow.forEach(singleData => {
         const singleDataDiv = document.createElement('div');
         singleDataDiv.classList.add('col');
         singleDataDiv.innerHTML = `
@@ -49,26 +45,32 @@ const showData = (data, dataLimit) =>{
         </div>
         `
         card.appendChild(singleDataDiv);
-
-        // console.log(singleData)
     });
+    // show/hide see-more-btn
+    if(dataLimit >= dataArray.length){
+        seeMoreBtn.classList.add('d-none');
+    }else{
+        seeMoreBtn.classList.remove('d-none');
+    }
     // spinner function called
     toggleSpinner(false);
 }
 
-// show limited data function
-const processSearch = (dataLimit) =>{
-    toggleSpinner(true); 
-    loadData(dataLimit);
-}
-processSearch(6);
+toggleSpinner(true);
 
-document.getElementById('see-more-btn').addEventListener('click', function(){
-    processSearch()
+const sortByDate = document.getElementById('sort-btn');
+sortByDate.addEventListener('click', function(){
+    dataArray.sort((a, b) => new Date(b.published_in) - new Date(a.published_in));
+    dataLimit = 6;
+    showData();
 });
-document.getElementById('sort-btn').addEventListener('click', function(){
-    // sortDataByDate(6);
+
+const seeMoreBtn = document.getElementById('see-more-btn');
+seeMoreBtn.addEventListener('click', function(){
+    dataLimit = dataArray.length;
+    showData();
 });
+
 
 // toggleSpinner function
 function toggleSpinner(isLoading){
@@ -98,9 +100,9 @@ const showDataDetails = data =>{
     aiFullDetails.innerHTML = `
     <p class="fw-bold">${data.data.description}</p>
     <div class="d-flex justify-content-between" style="flex-direction: row;">
-    <div class="text-success">${data.data.pricing[0].price ? data.data.pricing[0].price: 'no data found'}</div>
-    <div class="text-warning">${data.data.pricing[1].price ? data.data.pricing[1].price: 'no data found'}</div>
-    <div class="text-danger">${data.data.pricing[2].price ? data.data.pricing[2].price: 'no data found'}</div>
+    <div class="text-success">${data.data.pricing && data.data.pricing[0].price ? data.data.pricing[0].price: 'no data'}</div>
+    <div class="text-warning">${data.data.pricing && data.data.pricing[1].price ? data.data.pricing[1].price: 'no data'}</div>
+    <div class="text-danger">${data.data.pricing && data.data.pricing[2].price ? data.data.pricing[2].price: 'no data'}</div>
     </div>
     <div class="d-flex justify-content-between" style="flex-direction: row;">
     <div>
@@ -114,9 +116,9 @@ const showDataDetails = data =>{
     <div>
     <p class="fw-bold mt-3">Integrations:</p>
     <ul>
-        <li>${data.data.integrations[0] ? data.data.integrations[0]: "No data found"}</li>
-        <li>${data.data.integrations[1] ? data.data.integrations[1]: "No data found"}</li>
-        <li>${data.data.integrations[2] ? data.data.integrations[2]: "No data found"}</li>
+        <li>${data.data.integrations && data.data.integrations[0] ? data.data.integrations[0]: "No data"}</li>
+        <li>${data.data.integrations && data.data.integrations[1] ? data.data.integrations[1]: "No data"}</li>
+        <li>${data.data.integrations && data.data.integrations[2] ? data.data.integrations[2]: "No data"}</li>
     </ul>
     </div>
     </div>
@@ -124,12 +126,17 @@ const showDataDetails = data =>{
     aiImageDetails.innerHTML = `
     <div class="image-container">
         <img src="${data.data.image_link[0]}" style="height:200px;" alt="">
-        <div class="overlay">${data.data.accuracy.score*100}% accuracy</div>
+        ${
+            data.data.accuracy.score ?
+            `<div id="img-overlay" class="overlay">${data.data.accuracy.score * 100}% accuracy</div>` :
+            ''
+          }
+      
     </div>
-    <p class="text-center py-2 fw-bold">${data.data.input_output_examples[0].input ? data.data.input_output_examples[0].input: 'No data Found'}</p>
-    <p class="text-center px-2">${data.data.input_output_examples[0].output ? data.data.input_output_examples[0].output: 'no data found'}</p>
+    <p class="text-center py-2 fw-bold">${data.data.input_output_examples && data.data.input_output_examples[0].input ? data.data.input_output_examples[0].input: 'No data'}</p>
+    <p class="text-center px-2">${data.data.input_output_examples && data.data.input_output_examples[0].output ? data.data.input_output_examples[0].output: 'no data'}</p>
 
-    `
-
-    console.log(data.data)
+    `;
+    // console.log(data.data)
 }
+
