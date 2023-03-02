@@ -1,0 +1,57 @@
+#dataDetails .modal-dialog {
+    max-width: 60%;
+}
+.image-container {
+    position: relative;
+    display: inline-block;
+ }
+ 
+ .overlay {
+    position: absolute;
+    border-radius: 5px;
+    padding: 3px, 3px, 3px;
+    top: 5px;
+    left: 65%;
+    width: 30%;
+    height: 13%;
+    z-index: 1;
+    background-color: rgba(224, 7, 7, 0.87);
+    color: white;
+ } 
+@media (max-width: 720px) {
+    .modal-body{
+        flex-direction: column;
+    }
+    #dataDetails .modal-dialog {
+        max-width: 100%;
+    }
+    #Ai-full-details,
+    #Ai-image-details {
+        width: 100%;
+        margin: 10px 0;
+        object-fit: contain;
+    }
+
+    #Ai-image-details img {
+        max-width: 100%;
+        max-height: 300px;
+    }
+
+    #Ai-full-details {
+        order: 1;
+    }
+
+    #Ai-image-details {
+        order: 2;
+    }
+    .overlay {
+        position: absolute;
+        border-radius: 5px;
+        padding: 3px, 3px, 3px;
+        top: 5px;
+        left: 60%;
+        width: 40%;
+        height: 13%;
+        z-index: 1;
+     } 
+}

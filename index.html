@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 
 </head>
   <body class="container">
@@ -19,35 +20,42 @@
     
     <main>
         <!-- spinner start  -->
-        <section class="text-center">
-            <div id="loader" class="d-none spinner-border text-success mt-5" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>              
+        <section id="loader" class="d-none">
+            <div style="height: 400px;" class="d-flex justify-content-center align-items-center text-center">
+                <div class="spinner-border text-success" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
         </section>
         <!-- spinner end  -->
 
 
         <!-- card start-->
         <section>
-            <div id="card" class="row row-cols-1 row-cols-md-2 g-4">
-                <!-- <div class="col">
-                  <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                    <hr>
-                    <div class="d-flex justify-content-between">
-                        <p></p>
-                        <i class="bi bi-arrow-right text-danger p-3"></i>
-                    </div>
-                  </div>
-                </div> -->
+            <div id="card" class="row row-cols-1 row-cols-md-3 g-4">
+
+
               </div>
         </section>
         <!-- card end -->
-    
+        <!-- modal start -->
+        <section>
+            <div class="modal" id="dataDetails" tabindex="-1" aria-labelledby="dataDetailsLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="dataDetailsName"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex">
+                    <div id="Ai-full-details" class="d-flex p-2 mx-2 border border-danger rounded" style="flex-direction: column;"></div>
+                    <div id="Ai-image-details" class="d-flex p-2 mx-2 border border-danger rounded" style="flex-direction: column;"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
+        <!-- modal end  -->
 
         <section>
             <div class="my-3 d-flex justify-content-center align-item-center">
