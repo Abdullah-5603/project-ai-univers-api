@@ -23,11 +23,7 @@ const showData = () =>{
             <img src=${singleData.image} class="card-img-top" style="height:200px;" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Features</h5>
-                <ol>
-                    <li>${singleData.features[0]}</li>
-                    <li>${singleData.features[1]}</li>
-                    <li>${singleData.features[2]}</li>
-                </ol>
+                <ol>${singleData.features.map((d)=> (`<li>${d}</li>`)).join("")}</ol>
             </div>
                 <hr>
             <div class="d-flex" style="flex-direction:column; width: 100%;">
@@ -43,7 +39,8 @@ const showData = () =>{
                 </div>
             </div>
         </div>
-        `
+        ` 
+        console.log(singleData.features)
         card.appendChild(singleDataDiv);
     });
     // show/hide see-more-btn
@@ -54,6 +51,7 @@ const showData = () =>{
     }
     // spinner function called
     toggleSpinner(false);
+   
 }
 
 toggleSpinner(true);
