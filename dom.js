@@ -40,7 +40,6 @@ const showData = () =>{
             </div>
         </div>
         ` 
-        console.log(singleData.features)
         card.appendChild(singleDataDiv);
     });
     // show/hide see-more-btn
@@ -92,12 +91,13 @@ const showDataDetails = data =>{
     // aiFullDetails.innerText = data.data.name;
 
 
+
     aiFullDetails.innerHTML = `
     <p class="fw-bold">${data.data.description}</p>
     <div class="d-flex justify-content-between" style="flex-direction: row;">
-    <div class="text-success">${data.data.pricing && data.data.pricing[0].price ? data.data.pricing[0].price: 'no data'}</div>
-    <div class="text-warning">${data.data.pricing && data.data.pricing[1].price ? data.data.pricing[1].price: 'no data'}</div>
-    <div class="text-danger">${data.data.pricing && data.data.pricing[2].price ? data.data.pricing[2].price: 'no data'}</div>
+    <div class="text-success">${data.data.pricing && data.data.pricing[0].price ? data.data.pricing[0].price: 'free of cost'}</div>
+    <div class="text-warning">${data.data.pricing && data.data.pricing[1].price ? data.data.pricing[1].price: 'free of cost'}</div>
+    <div class="text-danger">${data.data.pricing && data.data.pricing[2].price ? data.data.pricing[2].price: 'free of cost'}</div>
     </div>
     <div class="d-flex justify-content-between" style="flex-direction: row;">
     <div>
@@ -109,9 +109,7 @@ const showDataDetails = data =>{
     <div>
     <p class="fw-bold mt-3">Integrations:</p>
     <ul>
-        <li>${data.data.integrations && data.data.integrations[0] ? data.data.integrations[0]: "No data"}</li>
-        <li>${data.data.integrations && data.data.integrations[1] ? data.data.integrations[1]: "No data"}</li>
-        <li>${data.data.integrations && data.data.integrations[2] ? data.data.integrations[2]: "No data"}</li>
+    ${data.data.integrations ? data.data.integrations.map(integration => `<li>${integration}</li>`).join("") : `<li>No data</li>`}
     </ul>
     </div>
     </div>
@@ -130,17 +128,19 @@ const showDataDetails = data =>{
     <p class="text-center px-2">${data.data.input_output_examples && data.data.input_output_examples[0].output ? data.data.input_output_examples[0].output: 'no data'}</p>
 
     `;
-    console.log(data.data.features)
+    console.log(data.data)
+   
 }
+    // function freeCost(cost){
+    //     if(cost === 0 || cost === null){
+    //         return 'free of cost';
+    //     } else{
+    //         return cost.map(a => a.price);
+    //     }
+    // }    
+    // const cost  = freeCost(data.data.pricing);
 
-// `<ol>${data.features.map((d)=> (`<li>${d}</li>`)).join("")}</ol>
 
-    // <ul>
-    //     <li>${a}</li>
-    //     <li>${b}</li>
-    //     <li>${c}</li>
-    // </ul>
-    // const {features} = data.data;
-    // const a = Object.values(features)[0].feature_name;
-    // const b = Object.values(features)[1].feature_name;
-    // const c = Object.values(features)[2].feature_name;
+{/* <li>${data.data.integrations && data.data.integrations[0] ? data.data.integrations[0]: "No data"}</li>
+<li>${data.data.integrations && data.data.integrations[1] ? data.data.integrations[1]: "No data"}</li>
+<li>${data.data.integrations && data.data.integrations[2] ? data.data.integrations[2]: "No data"}</li> */}
