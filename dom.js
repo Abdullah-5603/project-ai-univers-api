@@ -89,14 +89,11 @@ const loadDataDetails = async id =>{
     showDataDetails(data)
 }
 const showDataDetails = data =>{
-    // const dataName = document.getElementById('dataDetailsName');
     const aiFullDetails = document.getElementById('Ai-full-details');
     const aiImageDetails = document.getElementById('Ai-image-details')
     // aiFullDetails.innerText = data.data.name;
-    const {features} = data.data;
-    const a = Object.values(features)[0].feature_name;
-    const b = Object.values(features)[1].feature_name;
-    const c = Object.values(features)[2].feature_name;
+
+
     aiFullDetails.innerHTML = `
     <p class="fw-bold">${data.data.description}</p>
     <div class="d-flex justify-content-between" style="flex-direction: row;">
@@ -108,9 +105,7 @@ const showDataDetails = data =>{
     <div>
     <p class="fw-bold mt-3">Fetaurs:</p>
     <ul>
-        <li>${a}</li>
-        <li>${b}</li>
-        <li>${c}</li>
+        ${Object.entries(data.data.features).map(([key, value]) => `<li>${value.feature_name}</li>`).join("")}
     </ul>
     </div>
     <div>
@@ -137,6 +132,17 @@ const showDataDetails = data =>{
     <p class="text-center px-2">${data.data.input_output_examples && data.data.input_output_examples[0].output ? data.data.input_output_examples[0].output: 'no data'}</p>
 
     `;
-    // console.log(data.data)
+    console.log(data.data.features)
 }
 
+// `<ol>${data.features.map((d)=> (`<li>${d}</li>`)).join("")}</ol>
+
+    // <ul>
+    //     <li>${a}</li>
+    //     <li>${b}</li>
+    //     <li>${c}</li>
+    // </ul>
+    // const {features} = data.data;
+    // const a = Object.values(features)[0].feature_name;
+    // const b = Object.values(features)[1].feature_name;
+    // const c = Object.values(features)[2].feature_name;
