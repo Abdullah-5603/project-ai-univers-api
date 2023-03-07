@@ -95,9 +95,9 @@ const showDataDetails = data =>{
     aiFullDetails.innerHTML = `
     <p class="fw-bold">${data.data.description}</p>
     <div class="d-flex justify-content-between" style="flex-direction: row;">
-    <div class="text-success">${data.data.pricing && data.data.pricing[0].price ? data.data.pricing[0].price: 'free of cost'}</div>
-    <div class="text-warning">${data.data.pricing && data.data.pricing[1].price ? data.data.pricing[1].price: 'free of cost'}</div>
-    <div class="text-danger">${data.data.pricing && data.data.pricing[2].price ? data.data.pricing[2].price: 'free of cost'}</div>
+    <div class="text-success">${data.data.pricing && data.data.pricing[0].price !== '0' && data.data.pricing[0].price !== 'No cost' && data.data.pricing[0].price ? data.data.pricing[0].price: 'free of cost'}</div>
+    <div class="text-warning">${data.data.pricing && data.data.pricing[1].price !== '0' && data.data.pricing[1].price !== 'No cost' && data.data.pricing[1].price ? data.data.pricing[1].price: 'free of cost'}</div>
+    <div class="text-danger">${data.data.pricing && data.data.pricing[2].price !== '0' && data.data.pricing[2].price !== 'No cost' && data.data.pricing[2].price ? data.data.pricing[2].price: 'free of cost'}</div>
     </div>
     <div class="d-flex justify-content-between" style="flex-direction: row;">
     <div>
@@ -131,16 +131,3 @@ const showDataDetails = data =>{
     console.log(data.data)
    
 }
-    // function freeCost(cost){
-    //     if(cost === 0 || cost === null){
-    //         return 'free of cost';
-    //     } else{
-    //         return cost.map(a => a.price);
-    //     }
-    // }    
-    // const cost  = freeCost(data.data.pricing);
-
-
-{/* <li>${data.data.integrations && data.data.integrations[0] ? data.data.integrations[0]: "No data"}</li>
-<li>${data.data.integrations && data.data.integrations[1] ? data.data.integrations[1]: "No data"}</li>
-<li>${data.data.integrations && data.data.integrations[2] ? data.data.integrations[2]: "No data"}</li> */}
